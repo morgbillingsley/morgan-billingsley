@@ -2,11 +2,13 @@ import React, { useState } from "react"
 import { Link, graphql } from "gatsby"
 import { useFlexSearch } from "react-use-flexsearch"
 import Layout from "../components/layout"
+import SEO from "../components/seo"
 import SearchBar from "../components/searchBar"
 import { Container, Jumbotron, Card } from "react-bootstrap"
 
 const Search = ({ data, location }) => {
-    const defaultQuery = null !== location.state && undefined !== location.state.query ? location.state.query : null;
+    const hasDefaultQuery = undefined !== location.state && null !== location.state && undefined !== location.state.query
+    const defaultQuery = hasDefaultQuery ? location.state.query : null;
     const [query, setQuery] = useState(defaultQuery)
     console.log('Query is:', query)
     const { index, store } = data.localSearchArticles
@@ -18,6 +20,7 @@ const Search = ({ data, location }) => {
 
     return (
         <Layout>
+            <SEO title="Search" />
             <Jumbotron className="text-center">
                 <h2>Search</h2>
                 <p>Use the form below to find an article on my site.</p>

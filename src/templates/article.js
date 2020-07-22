@@ -1,11 +1,13 @@
 import React from "react"
 import { graphql } from "gatsby"
 import ArticleLayout from "../components/articleLayout"
+import SEO from "../components/seo"
 
 const Article = ({ data }) => {
     const post = data.markdownRemark
     return (
         <ArticleLayout>
+          <SEO title={`Article | ${post.frontmatter.title}`} />
             <article className="p-3">
                 <div className="mb-4">
                     <h1>{post.frontmatter.title}</h1>

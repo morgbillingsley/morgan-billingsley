@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import ReCAPTCHA from "react-google-recaptcha"
 import emailjs from "emailjs-com"
 import Layout from "../components/layout"
+import SEO from "../components/seo"
 import { Jumbotron, Form, Row, Col, Button, Alert } from "react-bootstrap"
 import FloatingInput from "../components/floatingInput"
 
@@ -30,6 +31,7 @@ const Contact = () => {
 
     return (
         <Layout>
+            <SEO title="Contact" />
             <Jumbotron className="text-center">
                 <div style={{
                     maxWidth: 768,
