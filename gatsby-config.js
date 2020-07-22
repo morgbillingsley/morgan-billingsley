@@ -1,16 +1,58 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Morgan Billingsley`,
+    description: `Morgan Billingsley is an entrepreneur and software developer in Phoenix, Arizona. He owns a software development shop called Dylate.`,
+    author: `Morgan Billingsley`,
   },
   plugins: [
+    {
+      resolve: 'gatsby-plugin-local-search',
+      options: {
+        name: 'articles',
+        engine: 'flexsearch',
+        engineOptions: 'speed',
+        query: `
+          {
+            allMarkdownRemark {
+              edges {
+                node {
+                  id
+                  frontmatter {
+                    title
+                    author
+                    category
+                  }
+                  excerpt
+                  rawMarkdownBody
+                  fields {
+                    slug
+                  }
+                }
+              }
+            }
+          }
+        `,
+        ref: 'id',
+        index: ['id', 'title', 'author', 'category', 'body'],
+        store: ['id', 'title', 'author', 'category', 'excerpt', 'slug'],
+        normalizer: ({ data }) =>
+          data.allMarkdownRemark.edges.map(({ node }) => ({
+            id: node.id,
+            title: node.frontmatter.title,
+            author: node.frontmatter.author,
+            category: node.frontmatter.category,
+            excerpt: node.excerpt,
+            body: node.rawMarkdownBody,
+            slug: node.fields.slug
+          }))
+      }
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
+        name: `src`,
+        path: `${__dirname}/src/`,
       },
     },
     `gatsby-transformer-sharp`,
@@ -24,9 +66,27 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/icon.png`,
       },
     },
+    `gatsby-plugin-sass`,
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              inlineCodeMarker: null,
+              aliases: {},
+              showLineNumbers: true,
+              noInlineHighlight: false,
+              escapeEntities: {},
+            },
+          },
+        ],
+      },
+    }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
