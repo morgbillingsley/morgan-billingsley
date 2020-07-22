@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <main className="animate__animated animate__fadeIn animate__delay-2s" style={{ marginTop: 57 }}>{children}</main>
+      <main className="animate__animated animate__fadeIn" style={{ marginTop: 57 }}>{children}</main>
       <Footer />
     </>
   )

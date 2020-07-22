@@ -1,5 +1,5 @@
 import React from "react"
-import { useLocation } from "react-router"
+import { useLocation } from "@reach/router"
 import { Link } from "gatsby"
 
 const SmartLink = (props) => {
