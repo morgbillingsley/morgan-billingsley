@@ -1,8 +1,10 @@
 import React from "react"
+import { useLocation } from "react-router"
 import { Link } from "gatsby"
 
 const SmartLink = (props) => {
-    const className = props.className + (props.location.pathname === props.to ? ` active` : ``);
+    const location = useLocation();
+    const className = props.className + (location.pathname === props.to ? ` active` : ``);
     return (
         <Link
             to={props.to}
