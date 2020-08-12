@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Morgan Billingsley`,
     description: `Morgan Billingsley is an entrepreneur and software developer in Phoenix, Arizona. He owns a software development shop called Dylate.`,
-    author: `Morgan Billingsley`,
+    author: `Morgan Billingsley`
   },
   plugins: [
     {
@@ -86,6 +86,28 @@ module.exports = {
           },
         ],
       },
+    },
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        query: `
+          {
+            allSitePage {
+              nodes {
+                path
+              }
+            }
+        }`,
+        resolveSiteUrl: () => `https://morganbillingsley.com`,
+        serialize: ({ site, allSitePage }) =>
+          allSitePage.nodes.map(node => {
+            return {
+              url: `https://morganbillingsley.com${node.path}`,
+              changefreq: `daily`,
+              priority: 0.7,
+            }
+          })
+      }
     }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
